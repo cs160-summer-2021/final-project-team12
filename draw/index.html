@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Nexus</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
+
+    <style type="text/css">
+        .body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .navBar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #2CA800;
+            height: 5vh;
+            width: 100vw;
+            font-size: 80px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-container {
+            width: 100vw;
+            font-size: 80px;
+            margin-top: 4vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .button {
+            background-color: #DDC700;
+            padding: 30px 200px;
+            margin-top: 5vh;
+            border-radius: 70px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .bottom-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #2CA800;
+            width: 100vw;
+            height: 55vh;
+            padding-top: 4vh;
+            font-size: 80px;
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .explore {
+            width: 70vw;
+            margin-top: 50px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+            background-color: #DDC700;
+            border-radius: 50px;
+            color: black;
+        }
+
+        .explore h2 {
+            font-size: 40px;
+            margin-bottom: 0;
+        }
+
+        .explore h1 {
+            margin-top: 0;
+            font-size: 70px;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- You may change the dimensions of this canvas -->
+    <div class="navBar">
+        <img/>
+        Nexus
+        <div class="empty"></div>
+    </div>
+    <div style="height: 5vh;"></div>
+    <div class="top-container">
+        What's next?
+        <a class= "button" href='/draw/plan.html'>
+            Plan
+        </a>
+        <a class= "button" href='/'>
+            View
+        </a>
+    </div>
+
+    <div class="bottom-container">
+        Explore
+        <a class='explore' href="/" onclick="">
+            <h2>Foo Fighters Concert</h2>
+            <h1>today 5pm-8pm</h1>
+        </a>
+        <a class='explore' href="/" onclick="">
+            <h2>Foo Fighters Concert</h2>
+            <h1>today 5pm-8pm</h1>
+        </a>
+        <a class='explore' href="/" onclick="">
+            <h2>Foo Fighters Concert</h2>
+            <h1>today 5pm-8pm</h1>
+        </a>
+        <a class='explore' href="/" onclick="">
+            <h2>Foo Fighters Concert</h2>
+            <h1>today 5pm-8pm</h1>
+        </a>
+    </div>
+</body>
+<script>
+
+</script>
+</html>
