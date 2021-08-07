@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Nexus</title>
+    <title>Plan</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
     <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
@@ -18,6 +18,7 @@
             position: fixed;
             left: 0;
             top: 0;
+            padding: 0px 20px;
             background-color: #2CA800;
             height: 5vh;
             width: 100vw;
@@ -28,37 +29,16 @@
             align-items: center;
         }
 
-        .top-container {
-            width: 100vw;
-            font-size: 80px;
-            margin-top: 4vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .back {
+            height: 100%;
         }
 
-        .button {
-            background-color: #DDC700;
-            padding: 30px 200px;
-            margin-top: 5vh;
-            border-radius: 70px;
-            text-decoration: none;
+        .back-img {
+            height: 50px;
         }
 
-        .bottom-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            background-color: #2CA800;
-            width: 100vw;
-            height: 55vh;
-            padding-top: 4vh;
-            font-size: 80px;
-            overflow-y: scroll;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .empty {
+            width: 31px;
         }
     </style>
 
@@ -66,25 +46,13 @@
 <body>
     <!-- You may change the dimensions of this canvas -->
     <div class="navBar">
-        <img/>
-        Nexus
+        <a class="back" href="/draw/index.html"><img class="back-img" src='/draw/static/img/back-button.svg'/></a>
+        Plan
         <div class="empty"></div>
     </div>
     <div style="height: 5vh;"></div>
-    <div class="top-container">
-        What's next?
-        <a class= "button" href='/'>
-            Plan
-        </a>
-        <a class= "button" href='/'>
-            View
-        </a>
-    </div>
+    
 
-    <div class="bottom-container">
-        Explore
-        
-    </div>
 </body>
 <script>
 
