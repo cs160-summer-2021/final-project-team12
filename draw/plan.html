@@ -172,7 +172,7 @@
             explore
         </a>
         <a class="nav here">
-            <img src="/draw/static/img/plan-icon.svg" height="80px"/>
+            <img src="/draw/static/img/plan-icon-active.svg" height="80px"/>
             plan
         </a>
         <a class="nav" href="/draw/view.html">
@@ -182,15 +182,19 @@
     </div>
 </body>
 <script>
+    //clock
     var t = setInterval(function() {getTime()}, 1000);
-    var x = setInterval(function() {moveTimeline()}, 60000);
-    var numBlock = 0;
-    getDate();
+    //getting JSON
+    var blocks = $.getJSON("plans.json", function(json) {
+        console.log(json);
+    });
 
-    function moveTimeline() {
-        console.log("move 1 minute")
-        document.getElementById('timeline').scrollBy(0, 5.6555);
-    }
+    console.log(blocks.Hi);
+
+    //number of blocks
+    var numBlock = 0;
+    //getting the date
+    getDate();
 
     function createBlock() {
         let timeline = document.getElementById('timeline-img');
@@ -199,6 +203,8 @@
         let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
         $("#timeline").append(
                     "<div class = 'block' style = 'top: " + -bottom + "px; height: " + height + "px' > <div class = 'category'> </div> </div>");
+        
+        
         numBlock += 1;
     }
 
@@ -271,6 +277,10 @@
             i = "0" + i;
         }
         return i;
+    }
+
+    function save() {
+
     }
 
 </script>
