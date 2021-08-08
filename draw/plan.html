@@ -4,9 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Nexus</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
-    <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
+    <script type="text/javascript" src="/draw/static/draw/vendor/jquery/jquery-3.3.1.min.js"></script>
 
     <style type="text/css">
         .body {
@@ -61,14 +59,18 @@
         .date {
             display: flex;
             flex-direction: column;
-            justify-content:end;
-            align-items: end;
             font-size: 5rem;
+            line-height: 0;
         }
 
         .hour {
             margin-right: 50px;
             font-size: 5rem;
+            display: flex;
+        }
+
+        .hour img {
+            margin-right: 50px;
         }
 
         .container {
@@ -79,6 +81,11 @@
             width: 100vw;
             height: 80vh;
             overflow-y: scroll;
+            z-index: 0;
+        }
+        
+        #now {
+
         }
 
         .navBar {
@@ -108,6 +115,22 @@
         .here {
             border-top: solid 10px #F45D00;
         }
+
+        .block {
+            position: relative;
+            left: 40%;
+            width: 500px;
+            background-color: #F45D00;
+            border: #B54B0A solid 5px;
+            border-radius: 50px;
+            z-index: 997;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category {
+
+        }
     </style>
 
 </head>
@@ -122,22 +145,24 @@
     <div class="time">
         <div class="time-date">
             <div class="day">
-                <p>Wed</p>
-                <p>Aug</p>
+                <p id="day"></p>
+                <p id="month"></p>
             </div>
             <div class="date">
-                12
+                <p id="date"></p>
             </div>
         </div>
 
         <div class="hour">
             <img src="/draw/static/img/time.svg" height="80px"/>
-            11:28:26 AM
+            <div id="clock"></div>
         </div>
     </div>
 
-    <div class="container">
-        <img src="/draw/static/img/time-plan.svg" width="100%"/>
+    <div class="container" id = "timeline">
+        <img id="timeline-img" onclick=createBlock() src="/draw/static/img/time-plan.svg" width="100%"> 
+            
+        </img>
     </div>
 
     <!--bottom navigation bar-->
@@ -157,6 +182,96 @@
     </div>
 </body>
 <script>
+    var t = setInterval(function() {getTime()}, 1000);
+    var x = setInterval(function() {moveTimeline()}, 60000);
+    var numBlock = 0;
+    getDate();
+
+    function moveTimeline() {
+        console.log("move 1 minute")
+        document.getElementById('timeline').scrollBy(0, 5.6555);
+    }
+
+    function createBlock() {
+        let timeline = document.getElementById('timeline-img');
+        let y = mousePosY();
+        let height = timeline.offsetHeight / 24;
+        let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
+        $("#timeline").append(
+                    "<div class = 'block' style = 'top: " + -bottom + "px; height: " + height + "px' > <div class = 'category'> </div> </div>");
+        numBlock += 1;
+    }
+
+    function mousePosY() {
+        return window.event.clientY + document.getElementById('timeline').scrollTop  - window.innerHeight * 15 / 100;
+    }
+
+    function getDate() {
+        let date = new Date();
+        document.getElementById('date').innerHTML = checkTime(date.getDate());
+        document.getElementById('month').innerHTML = translateMonth(date.getMonth());
+        document.getElementById('day').innerHTML = translateDate(date.getDay());
+    }
+
+    function translateDate(date) {
+        if (date == 0) {
+            return 'Sun';
+        } else if (date == 1) {
+            return 'Mon';
+        } else if (date == 2) {
+            return 'Tue';
+        } else if (date == 3) {
+            return 'Wed';
+        } else if (date == 4) {
+            return 'Thu';
+        } else if (date == 5) {
+            return 'Fri';
+        } else if (date == 6) {
+            return 'Sat';
+        }
+    }
+
+    function translateMonth(month) {
+        if (month == 0) {
+            return 'Jan';
+        } else if (month == 1) {
+            return 'Feb';
+        } else if (month == 2) {
+            return 'Mar';
+        } else if (month == 3) {
+            return 'Apr';
+        } else if (month == 4) {
+            return 'May';
+        } else if (month == 5) {
+            return 'Jun';
+        } else if (month == 6) {
+            return 'Jul';
+        } else if (month == 7) {
+            return 'Aug';
+        } else if (month == 8) {
+            return 'Sep';
+        } else if (month == 9) {
+            return 'Oct';
+        } else if (month == 10) {
+            return 'Nov';
+        } else if (month == 11) {
+            return 'Dec';
+        }
+    }
+
+    function getTime() {
+        let time = new Date();
+        document.getElementById('clock').innerHTML = checkTime(time.getHours()) + ":" 
+                                                   + checkTime(time.getMinutes()) + ":" 
+                                                   + checkTime(time.getSeconds());
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
 
 </script>
 </html>
