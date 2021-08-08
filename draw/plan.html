@@ -31,6 +31,46 @@
             margin: 0 40px;
         }
 
+        .time {
+            position: fixed;
+            top: 10vh;
+            left: 0;
+            padding-top: 1vh;
+            height: 6vh;
+            width: 100vw;
+            background-color: #f45e00a4;
+            z-index: 998;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            letter-spacing: 4px;
+        }
+
+        .time-date {
+            margin-left: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .day {
+            font-size: 1.7rem;
+            line-height: 0;
+        }
+
+        .date {
+            display: flex;
+            flex-direction: column;
+            justify-content:end;
+            align-items: end;
+            font-size: 5rem;
+        }
+
+        .hour {
+            margin-right: 50px;
+            font-size: 5rem;
+        }
+
         .container {
             position: absolute;
             top: 10vh;
@@ -54,7 +94,7 @@
             color: #F45D00;
         }
 
-        .col {
+        .nav {
             padding: 30px;
             color: #F45D00;
             text-decoration: none;
@@ -79,21 +119,38 @@
     </div>
 
     <!--inside-->
-    <div class="container">
+    <div class="time">
+        <div class="time-date">
+            <div class="day">
+                <p>Wed</p>
+                <p>Aug</p>
+            </div>
+            <div class="date">
+                12
+            </div>
+        </div>
 
+        <div class="hour">
+            <img src="/draw/static/img/time.svg" height="80px"/>
+            11:28:26 AM
+        </div>
+    </div>
+
+    <div class="container">
+        <img src="/draw/static/img/time-plan.svg" width="100%"/>
     </div>
 
     <!--bottom navigation bar-->
     <div class="navBar">
-        <a class="col" href="/draw/index.html">
+        <a class="nav" href="/draw/index.html">
             <img src="/draw/static/img/explore-icon.svg" height="80px"/>
             explore
         </a>
-        <a class="col here">
+        <a class="nav here">
             <img src="/draw/static/img/plan-icon.svg" height="80px"/>
             plan
         </a>
-        <a class="col" href="/draw/view.html">
+        <a class="nav" href="/draw/view.html">
             <img src="/draw/static/img/view-icon.svg" height="80px"/>
             view
         </a>
