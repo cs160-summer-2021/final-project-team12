@@ -1,3 +1,31 @@
 {
-    "Hi" : "hi"
+    "blocks": [
+        {
+            "id": "4",
+            "cat": "Museum",
+            "time": {
+                "hour": 11, 
+                "minute": 0,
+                "second": 0
+            }
+        },
+        {
+            "id": "100",
+            "cat": "Hiking",
+            "time" : {
+                "hour": 16, 
+                "minute": 0,
+                "second": 0
+            }
+        },
+        {
+            "id": "2",
+            "cat": "Concert",
+            "time" : {
+                "hour": 18, 
+                "minute": 30,
+                "second": 0
+            }
+        }
+    ]
 }

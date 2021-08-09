@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Nexus</title>
+    <title>Plan</title>
 
     <script type="text/javascript" src="/draw/static/draw/vendor/jquery/jquery-3.3.1.min.js"></script>
 
@@ -126,10 +126,34 @@
             z-index: 997;
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
 
         .category {
+            width: 40%;
+            margin-top: 7%;
+            margin-bottom: 10%;
+            padding: 3% 10%;
+            background-color: #B54B0A;
+            color: #212121;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
+        .set {
+            width: fit-content;
+            margin-top: 2%;
+            padding: 2% 10%;
+            background-color: #B54B0A;
+            color: #212121;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
         }
     </style>
 
@@ -167,15 +191,15 @@
 
     <!--bottom navigation bar-->
     <div class="navBar">
-        <a class="nav" href="/draw/index.html">
+        <a class="nav" href="/draw/index.html" onclick=saveData()>
             <img src="/draw/static/img/explore-icon.svg" height="80px"/>
             explore
         </a>
-        <a class="nav here">
+        <a class="nav here" onclick=saveData()>
             <img src="/draw/static/img/plan-icon-active.svg" height="80px"/>
             plan
         </a>
-        <a class="nav" href="/draw/view.html">
+        <a class="nav" href="/draw/view.html" onclick=saveData()>
             <img src="/draw/static/img/view-icon.svg" height="80px"/>
             view
         </a>
@@ -184,17 +208,51 @@
 <script>
     //clock
     var t = setInterval(function() {getTime()}, 1000);
-    //getting JSON
-    var blocks = $.getJSON("plans.json", function(json) {
-        console.log(json);
-    });
-
-    console.log(blocks.Hi);
+    //getting the date
+    getDate();
+    //getting JSON 
+    var Blocks = {blocks: []};  
+    fetch("./plans.json").then(
+        function(u){ return u.json();}
+      ).then(
+        function(data){
+          createBlockJSON(data);
+        }
+      )
 
     //number of blocks
     var numBlock = 0;
-    //getting the date
-    getDate();
+    var currentId = 0;
+    
+    function createBlockJSON(json) {
+        if (localStorage.getItem("plans") != null) {
+            json = JSON.parse(localStorage.getItem("plans"));
+        }
+        console.log(json);
+        for (i=0; i < json.blocks.length; i++) {
+            if (json.blocks[i] != null) {
+            let timeline = document.getElementById('timeline-img');
+            let height = timeline.offsetHeight / 24;
+            let y = json.blocks[i].time.hour * height + json.blocks[i].time.minute * height/60 + json.blocks[i].time.second * height/3600 - 100;
+            let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
+            $("#timeline").append(
+            "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <div class='set'>set</div> <div class='set'>randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> delete</div> </div>");
+            
+            let block = {id: currentId,
+                         cat: json.blocks[i].cat,
+                         time: {
+                             hour: json.blocks[i].time.hour,
+                             minute: json.blocks[i].time.minute,
+                             second: json.blocks[i].time.second
+                         }
+                        };
+            Blocks.blocks.push(block);
+            currentId += 1;
+            numBlock += 1;
+            }
+        }
+        console.log(Blocks)
+    }
 
     function createBlock() {
         let timeline = document.getElementById('timeline-img');
@@ -202,14 +260,46 @@
         let height = timeline.offsetHeight / 24;
         let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
         $("#timeline").append(
-                    "<div class = 'block' style = 'top: " + -bottom + "px; height: " + height + "px' > <div class = 'category'> </div> </div>");
+            "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> Category </div> <div class='set'>set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> delete</div> </div>");
         
-        
+        let block = {id: currentId,
+                     cat: "Category",
+                     time: {
+                        hour: Math.floor((y+100)/height),
+                        minute: Math.floor(((y+100)/height - Math.floor((y+100)/height)) * 60),
+                        second: 0
+                     }
+                    };
+        Blocks.blocks.push(block);
+        currentId += 1;
         numBlock += 1;
+        console.log(Blocks);
+    }
+
+    function randomize(id, cat) {
+        let category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
+        let block = document.getElementById(id);
+        let blockCat = document.getElementById(cat);
+        blockCat.innerHTML = category[Math.floor(Math.random() * (category.length))];
+    }
+
+    function deleteBlock(id) {
+        let block = document.getElementById(id);
+        console.log(Blocks.blocks[parseInt(block.id[5])]);
+        Blocks.blocks[parseInt(block.id[5])] = null;
+        delete Blocks.blocks[parseInt(block.id[5])];
+        block.remove();
+        numBlock -= 1;
+    }
+
+    function saveData() {
+        console.log("saving");
+        localStorage.setItem("plans", JSON.stringify(Blocks));
+        console.log("saving complete");
     }
 
     function mousePosY() {
-        return window.event.clientY + document.getElementById('timeline').scrollTop  - window.innerHeight * 15 / 100;
+        return window.event.clientY + document.getElementById('timeline').scrollTop - window.innerHeight * 15 / 100;
     }
 
     function getDate() {
@@ -278,10 +368,5 @@
         }
         return i;
     }
-
-    function save() {
-
-    }
-
 </script>
 </html>
