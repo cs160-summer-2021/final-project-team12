@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +26,7 @@
             align-items: center;
             color: #F45D00;
         }
-        
+
         .top-button {
             margin: 0 40px;
         }
@@ -83,7 +85,7 @@
             overflow-y: scroll;
             z-index: 0;
         }
-        
+
         #now {
 
         }
@@ -160,7 +162,7 @@
 </head>
 <body>
     <!--top bar-->
-    <div class="top"> 
+    <div class="top">
         <img class="top-button" src="/draw/static/img/logo.svg" height="80px"/>
         <img class="top-button" src="/draw/static/img/profile-icon.svg" height="80px"/>
     </div>
@@ -184,8 +186,8 @@
     </div>
 
     <div class="container" id = "timeline">
-        <img id="timeline-img" onclick=createBlock() src="/draw/static/img/time-plan.svg" width="100%"> 
-            
+        <img id="timeline-img" onclick=createBlock() src="/draw/static/img/time-plan.svg" width="100%">
+
         </img>
     </div>
 
@@ -210,8 +212,8 @@
     var t = setInterval(function() {getTime()}, 1000);
     //getting the date
     getDate();
-    //getting JSON 
-    var Blocks = {blocks: []};  
+    //getting JSON
+    var Blocks = {blocks: []};
     fetch("./plans.json").then(
         function(u){ return u.json();}
       ).then(
@@ -223,7 +225,7 @@
     //number of blocks
     var numBlock = 0;
     var currentId = 0;
-    
+
     function createBlockJSON(json) {
         if (localStorage.getItem("plans") != null) {
             json = JSON.parse(localStorage.getItem("plans"));
@@ -237,7 +239,7 @@
             let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
             $("#timeline").append(
             "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <div class='set'>set</div> <div class='set'>randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> delete</div> </div>");
-            
+
             let block = {id: currentId,
                          cat: json.blocks[i].cat,
                          time: {
@@ -261,7 +263,7 @@
         let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
         $("#timeline").append(
             "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> Category </div> <div class='set'>set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> delete</div> </div>");
-        
+
         let block = {id: currentId,
                      cat: "Category",
                      time: {
@@ -357,8 +359,8 @@
 
     function getTime() {
         let time = new Date();
-        document.getElementById('clock').innerHTML = checkTime(time.getHours()) + ":" 
-                                                   + checkTime(time.getMinutes()) + ":" 
+        document.getElementById('clock').innerHTML = checkTime(time.getHours()) + ":"
+                                                   + checkTime(time.getMinutes()) + ":"
                                                    + checkTime(time.getSeconds());
     }
 
