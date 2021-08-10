@@ -167,7 +167,8 @@
         }
 
         .category {
-            width: 40%;
+            width: fit-content;
+            min-width: 40%;
             margin-top: 7%;
             margin-bottom: 10%;
             padding: 2% 10%;
@@ -268,26 +269,52 @@
         console.log(json);
         for (i=0; i < json.blocks.length; i++) {
             if (json.blocks[i] != null) {
+                let timeline = document.getElementById('timeline-img');
+                let height = timeline.offsetHeight / 24;
+                let y = json.blocks[i].time.hour * height + json.blocks[i].time.minute * height/60 + json.blocks[i].time.second * height/3600 - 100;
+                let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
+                $("#timeline").append(
+                    "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
+                );
+            
+                let block = {id: currentId,
+                            cat: json.blocks[i].cat,
+                            time: {
+                                 hour: json.blocks[i].time.hour,
+                                 minute: json.blocks[i].time.minute,
+                                 second: json.blocks[i].time.second
+                             }
+                            };
+                Blocks.blocks.push(block);
+                currentId += 1;
+                numBlock += 1;
+            }
+        }
+
+        if (localStorage.getItem("explore") != null) {
             let timeline = document.getElementById('timeline-img');
+            let explore = JSON.parse(localStorage.getItem("explore"));
             let height = timeline.offsetHeight / 24;
-            let y = json.blocks[i].time.hour * height + json.blocks[i].time.minute * height/60 + json.blocks[i].time.second * height/3600 - 100;
+            let y = explore.time.hour * height + explore.time.minute * height/60 + explore.time.second * height/3600 - 100;
             let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
             $("#timeline").append(
-            "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>");
+                "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ explore.cat +" </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
+            );
             
             let block = {id: currentId,
-                         cat: json.blocks[i].cat,
-                         time: {
-                             hour: json.blocks[i].time.hour,
-                             minute: json.blocks[i].time.minute,
-                             second: json.blocks[i].time.second
+                        cat: explore.cat,
+                        time: {
+                             hour: explore.time.hour,
+                             minute: explore.time.minute,
+                             second: explore.time.second
                          }
                         };
             Blocks.blocks.push(block);
             currentId += 1;
             numBlock += 1;
-            }
+            localStorage.setItem("explore", null); 
         }
+        
         console.log(Blocks)
         saveData();
     }

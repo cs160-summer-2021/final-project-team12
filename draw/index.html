@@ -39,6 +39,28 @@
             width: 100vw;
             height: 80vh;
             overflow-y: scroll;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content:space-evenly;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            width: fit-content;
+            height: fit-content;
+        }
+
+        .small {
+            margin-top: 5%;
+            width: 32vw;
+        }
+
+        .big {
+            margin-top: 2%;
+            width: 65vw;
         }
 
         .navBar {
@@ -80,6 +102,44 @@
 
     <!--inside-->
     <div class="container">
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(1)> <img class="big" src="/draw/static/img/explore/big-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(1)> <img class="big" src="/draw/static/img/explore/big-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
+        <div class="col">
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+        </div>
         
     </div>
 
@@ -100,6 +160,29 @@
     </div>
 </body>
 <script>
-
+    
+    function explore(item) {
+        if (item == 0 ) {
+            let block = {
+                          "cat": "Ancient Arts",
+                          "time": {
+                              "hour": 13,
+                              "minute": 30,
+                              "second": 0
+                          }
+                        };
+            localStorage.setItem("explore", JSON.stringify(block));
+        } else {
+            let block = {
+                          "cat": "Foo Fighters",
+                          "time": {
+                              "hour": 17,
+                              "minute": 30,
+                              "second": 0
+                          }
+                        };
+            localStorage.setItem("explore", JSON.stringify(block));
+        }
+    }
 </script>
 </html>
