@@ -99,9 +99,18 @@
             margin-right: 30px;
         }
 
+        .blank {
+            position: fixed;
+            top: 10vh;
+            left: 0;
+            height: 6vh;
+            width: 100%;
+            background-color: #212121;
+        }
+
         .container {
             position: absolute;
-            top: 10vh;
+            top: 16vh;
             left: 0;
             background-color: #212121;
             width: 100vw;
@@ -210,7 +219,7 @@
             <div id="clock"></div>
         </div>
     </div>
-
+    <div class="blank"></div>
     <div class="container" id = "timeline">
         <img id="timeline-img" onclick=createBlock() src="/draw/static/img/time-plan.svg" width="100%"> 
             
@@ -262,7 +271,7 @@
             let timeline = document.getElementById('timeline-img');
             let height = timeline.offsetHeight / 24;
             let y = json.blocks[i].time.hour * height + json.blocks[i].time.minute * height/60 + json.blocks[i].time.second * height/3600 - 100;
-            let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
+            let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
             $("#timeline").append(
             "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>");
             
@@ -284,10 +293,13 @@
     }
 
     function createBlock() {
+        if (numBlock >= 10) {
+            return
+        }
         let timeline = document.getElementById('timeline-img');
         let y = mousePosY();
         let height = timeline.offsetHeight / 24;
-        let bottom = timeline.offsetHeight - y + (numBlock*(height + 10)) - 100;
+        let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
         $("#timeline").append(
             "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> Category </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>");
         
@@ -326,6 +338,7 @@
         block.remove();
         numBlock -= 1;
         saveData();
+        location.reload();
     }
 
     function saveData() {
