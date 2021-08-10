@@ -6,9 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Nexus</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
     <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
 
     <style type="text/css">
         .body {
@@ -98,49 +96,49 @@
 <body>
     <!--top bar-->
     <div class="top">
-        <img class="top-button" src="/draw/static/img/logo.svg" height="80px"/>
-        <img class="top-button" src="/draw/static/img/profile-icon.svg" height="80px"/>
+        <img class="top-button" src="{% static '/img/logo.svg'%}" height="80px"/>
+        <img class="top-button" src="{% static '/img/profile-icon.svg'%}" height="80px"/>
     </div>
 
     <!--inside-->
     <div class="container">
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(1)> <img class="big" src="/draw/static/img/explore/big-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(1)> <img class="big" src="{% static '/img/explore/big-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(1)> <img class="big" src="/draw/static/img/explore/big-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(1)> <img class="big" src="{% static '/img/explore/big-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
         <div class="col">
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
-            <a href="/draw/plan.html" onclick=explore(0)> <img class="small" src="/draw/static/img/explore/small-explore-block.svg"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
+            <a href="/draw/plan" onclick=explore(0)> <img class="small" src="{% static '/img/explore/small-explore-block.svg'%}"/> </a>
         </div>
 
     </div>
@@ -148,15 +146,15 @@
     <!--bottom navigation bar-->
     <div class="navBar">
         <a class="nav here">
-            <img src="/draw/static/img/explore-icon-active.svg" height="80px"/>
+            <img src="{% static '/img/explore-icon-active.svg'%}" height="80px"/>
             explore
         </a>
-        <a class="nav" href="/draw/plan.html">
-            <img src="/draw/static/img/plan-icon.svg" height="80px"/>
+        <a class="nav" href="/draw/plan">
+            <img src="{% static '/img/plan-icon.svg'%}" height="80px"/>
             plan
         </a>
-        <a class="nav" href="/draw/view.html">
-            <img src="/draw/static/img/view-icon.svg" height="80px"/>
+        <a class="nav" href="/draw/view">
+            <img src="{% static '/img/view-icon.svg'%}" height="80px"/>
             view
         </a>
     </div>

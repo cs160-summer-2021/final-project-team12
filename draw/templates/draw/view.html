@@ -6,9 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>View</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'draw/vendor/bootstrap/css/bootstrap.min.css' %}">
     <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'draw/vendor/paper/paper-full.min.js' %}"></script>
 
     <style type="text/css">
         .body {
@@ -76,27 +74,27 @@
 <body>
     <!--top bar-->
     <div class="top">
-        <img class="top-button" src="/draw/static/img/logo.svg" height="80px"/>
-        <img class="top-button" src="/draw/static/img/profile-icon.svg" height="80px"/>
+        <img class="top-button" src="{% static '/img/logo.svg'%}" height="80px"/>
+        <img class="top-button" src="{% static '/img/profile-icon.svg'%}" height="80px"/>
     </div>
 
     <!--inside-->
     <div class="container">
-        dfdsfs
+        
     </div>
 
     <!--bottom navigation bar-->
     <div class="navBar">
-        <a class="nav" href="/draw/index.html">
-            <img src="/draw/static/img/explore-icon.svg" height="80px"/>
+        <a class="nav" href="/draw/">
+            <img src="{% static 'img/explore-icon.svg'%}" height="80px"/>
             explore
         </a>
-        <a class="nav" href="/draw/plan.html">
-            <img src="/draw/static/img/plan-icon.svg" height="80px"/>
+        <a class="nav" href="/draw/plan">
+            <img src="{% static '/img/plan-icon.svg'%}" height="80px"/>
             plan
         </a>
         <a class="nav here">
-            <img src="/draw/static/img/view-icon-active.svg" height="80px"/>
+            <img src="{% static '/img/view-icon-active.svg'%}" height="80px"/>
             view
         </a>
     </div>
