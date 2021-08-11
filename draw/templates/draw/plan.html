@@ -122,7 +122,10 @@
         }
 
         #now {
-
+            position: absolute;
+            top: 100px;
+            z-index: 999;
+            pointer-events: none;
         }
 
         .navBar {
@@ -224,8 +227,9 @@
     </div>
     <div class="blank"></div>
     <div class="container" id = "timeline">
+        <img id="now" src="{% static '/img/current-time.svg'%}" width="97%">
         <img id="timeline-img" onclick=createBlock() src="{% static '/img/time-plan.svg'%}" width="100%">
-
+        
         </img>
     </div>
 
@@ -259,7 +263,7 @@
           createBlockJSON(data);
         }
       )
-
+    
     //number of blocks
     var numBlock = 0;
     var currentId = 0;
@@ -440,6 +444,9 @@
                                                    + checkTime(time.getMinutes(), false) + ":"
                                                    + checkTime(time.getSeconds(), false) + " "
                                                    + ampm(time.getHours());
+        let timeline = document.getElementById('timeline-img');
+        let height = timeline.offsetHeight/24;
+        document.getElementById('now').style.top = (time.getHours() + time.getMinutes()/60 + time.getSeconds()/3600) * height - 25 + "px";
     }
 
     function checkTime(i, isHour) {
