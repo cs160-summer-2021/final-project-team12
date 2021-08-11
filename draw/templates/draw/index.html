@@ -9,9 +9,22 @@
     <script type="text/javascript" src="{% static 'draw/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
 
     <style type="text/css">
+        @font-face {
+            font-family: 'Armata';
+            font-style: normal;
+            font-weight: 400;
+            src: url('{% static "/armata-v12-latin/armata-v12-latin-regular.eot"%}'); /* IE9 Compat Modes */
+            src: url('{% static "/armata-v12-latin/armata-v12-latin-regular.eot?#iefix"%}') format('embedded-opentype'), /* IE6-IE8 */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.woff2"%}') format('woff2'), /* Super Modern Browsers */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.woff"%}') format('woff'), /* Modern Browsers */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.ttf"%}') format('truetype'), /* Safari, Android, iOS */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.svg#Armata"%}') format('svg'); /* Legacy iOS */
+        }
+
         .body {
             background-color: #212121;
             color: #F45D00;
+            font-family: Armata;
         }
 
         .top {
@@ -74,6 +87,7 @@
             justify-content: space-evenly;
             align-items: center;
             color: #F45D00;
+            font-family: Armata;
         }
 
         .nav {
@@ -149,7 +163,7 @@
             <img src="{% static '/img/explore-icon-active.svg'%}" height="80px"/>
             explore
         </a>
-        <a class="nav" href="/draw/plan">
+        <a class="nav" href="/draw/plan" onclick=>
             <img src="{% static '/img/plan-icon.svg'%}" height="80px"/>
             plan
         </a>
@@ -184,5 +198,6 @@
             localStorage.setItem("explore", JSON.stringify(block));
         }
     }
+
 </script>
 </html>
