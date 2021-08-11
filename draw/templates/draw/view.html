@@ -83,7 +83,7 @@
         .date {
             display: flex;
             flex-direction: column;
-            font-size: 5rem;
+            font-size: 4.5rem;
             line-height: 0;
         }
 
@@ -234,7 +234,7 @@
         json = reorder(json);
         console.log(json);
         for (let i=0; i < json.blocks.length; i++) {
-            if (json.blocks[i] != null) {
+            if (json.blocks[i] != null && json.blocks[i].cat != "Category") {
                 let block = {id: currentId,
                             cat: json.blocks[i].cat,
                             time: {
@@ -248,11 +248,10 @@
                 numBlock += 1;
             }
         }
-        console.log(json.blocks.length);
         for (let i=0; i < json.blocks.length; i++) {
-            console.log(json.blocks[i].id, i)
-            createTime(json.blocks[i].id, json.blocks[i].cat, json.blocks[i].time);
-            
+            if (json.blocks[i].cat != "Category") {
+                createTime(json.blocks[i].id, json.blocks[i].cat, json.blocks[i].time);
+            }
         }
         
         console.log(Blocks)
@@ -279,16 +278,23 @@
         let catPos = Math.floor(Math.random() * numPosibility);
         
         for (let i=0; i < numPosibility; i++) {
-            let category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
+            var category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
+            var noCat = [cat];
             if (i == catPos) {
                 $("#row" + id).append(
                     "<div class='chosen'> "+ cat +" </div>"
                 );
             } else {
-                let pick = category[Math.floor(Math.random() * category.length)];
+                var pick = category[Math.floor(Math.random() * category.length)];
+                console.log(noCat.includes(pick) , noCat, pick, noCat.indexOf(pick));
+                while (noCat.indexOf(pick) > -1) {
+                    pick = category[Math.floor(Math.random() * category.length)];
+                    console.log(cat, pick);
+                }
                 $("#row" + id).append(
                     "<div class='possibility'> "+ pick +" </div>"
                 );
+                noCat.push(pick);
             }
         }
     }

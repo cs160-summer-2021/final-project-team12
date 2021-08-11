@@ -58,7 +58,6 @@
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            letter-spacing: 4px;
             font-family: Armata;
         }
 
@@ -70,12 +69,6 @@
             width: 100vw;
             background-color: #212121;
             z-index: 998;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-            letter-spacing: 4px;
-            font-family: Armata;
         }
 
         .time-date {
@@ -103,13 +96,13 @@
         .date {
             display: flex;
             flex-direction: column;
-            font-size: 5rem;
+            font-size: 4.5rem;
             line-height: 0;
         }
 
         .hour {
             margin-right: 40px;
-            font-size: 5rem;
+            font-size: 4.5rem;
             display: flex;
         }
 
@@ -223,7 +216,7 @@
 
         <div class="hour">
             <img src="{% static '/img/time.svg'%}" height="80px"/>
-            <div id="clock">11:15 - 12.15</div>
+            <div id="clock">11:15 - 12:15 PM</div>
         </div>
     </div>
 
@@ -328,7 +321,9 @@
     function getTime() {
         var json = (localStorage.getItem("set"));
         console.log(json);
-        
+        document.getElementById('clock').innerHTML = json;
+
+        localStorage.setItem("set", null);
     }
 
     function checkTime(i, isHour) {

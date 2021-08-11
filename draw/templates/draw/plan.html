@@ -87,13 +87,13 @@
         .date {
             display: flex;
             flex-direction: column;
-            font-size: 5rem;
+            font-size: 4.5rem;
             line-height: 0;
         }
 
         .hour {
             margin-right: 40px;
-            font-size: 5rem;
+            font-size: 4.5rem;
             display: flex;
         }
 
@@ -197,6 +197,7 @@
             font-size: 2rem;
             display: flex;
             justify-content: center;
+            text-decoration: none;
         }
     </style>
 
@@ -279,8 +280,12 @@
                 let height = timeline.offsetHeight / 24;
                 let y = json.blocks[i].time.hour * height + json.blocks[i].time.minute * height/60 + json.blocks[i].time.second * height/3600 - 100;
                 let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
+
+                let hour = json.blocks[i].time.hour
+                let minute = json.blocks[i].time.minute
+                let time = realTime(hour, minute) + '-' + realTime((hour + 1), minute) + ampm(hour+1);
                 $("#timeline").append(
-                    "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <a class='set' href='/draw/set'>Set</a> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
+                    "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <a class='set' href='/draw/set' onclick=set('"+ time +"') >Set</a> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
                 );
 
                 let block = {id: currentId,
@@ -304,11 +309,9 @@
             let y = explore.time.hour * height + explore.time.minute * height/60 + explore.time.second * height/3600 - 100;
             let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
 
-            let category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
-            let time = explore.time.hour + ":" + explore.time.minute + " - " + (explore.time.hour + 1) + ":" + explore.time.minute;
-            let choice = [explore.cat, category[Math.floor(Math.random() * (category.length))], category[Math.floor(Math.random() * (category.length))]];
+            let time = realTime(explore.time.hour, explore.time.minute) + '-' + realTime((explore.time.hour+1), explore.time.minute) + ampm(explore.time.hour+1);
             $("#timeline").append(
-                "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ explore.cat +" </div> <a class='set' href='/draw/set' onclick()=set("+ time +", "+ choice +") >Set</a> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
+                "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ explore.cat +" </div> <a class='set' href='/draw/set' onclick=set('"+ time +"')>Set</a> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
             );
 
             let block = {id: currentId,
@@ -338,15 +341,12 @@
         let height = timeline.offsetHeight / 24;
         let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
 
-        let category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
         let hour =  Math.floor((y+100)/height);
         let minute = Math.floor(((y+100)/height - Math.floor((y+100)/height)) * 60);
-        let time = hour + ":" + minute + "-" + (hour + 1) + ":" + minute;
-        let choice = [category[Math.floor(Math.random() * (category.length))], category[Math.floor(Math.random() * (category.length))], category[Math.floor(Math.random() * (category.length))]];
-
+        let time = realTime(hour, minute) + '-' + realTime((hour + 1), minute) + ampm(hour+1);
 
         $("#timeline").append(
-            "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> Category </div> <a class='set' href='/draw/set' onclick()=set("+ time +", "+ choice +") >Set</a> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>");
+            "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> Category </div> <a class='set' href='/draw/set' onclick=set('"+ time +"')>Set</a> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>");
 
         let block = {id: currentId,
                      cat: "Category",
@@ -397,7 +397,7 @@
         return window.event.clientY + document.getElementById('timeline').scrollTop - window.innerHeight * 15 / 100;
     }
 
-    function set(times, choice) {
+    function set(times) {
         localStorage.setItem("set", times);
     }
 
@@ -485,6 +485,14 @@
             return 'PM';
         } else {
             return 'AM';
+        }
+    }
+
+    function realTime(hour, minute) {
+        if (minute < 22) {
+            return checkTime(hour-1) + ":" + checkTime(minute + 60 - 22);
+        } else {
+            return checkTime(hour) + ":" + checkTime(minute - 22);
         }
     }
 
