@@ -9,6 +9,8 @@ def view(request):
     return render(request, 'draw/view.html')
 def explore(request):
     return render(request, 'draw/explore.html')
+def set(request):
+    return render(request, 'draw/set.html')
 
 def room(request, room_name):
     return render(request, 'draw/room.html', {
