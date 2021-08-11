@@ -1,0 +1,540 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Plan</title>
+
+    <script type="text/javascript" src="{% static '/draw/vendor/jquery/jquery-3.3.1.min.js'%}"></script>
+
+    <style type="text/css">
+        /* armata-regular - latin */
+        @font-face {
+            font-family: 'Armata';
+            font-style: normal;
+            font-weight: 400;
+            src: url('{% static "/armata-v12-latin/armata-v12-latin-regular.eot"%}'); /* IE9 Compat Modes */
+            src: url('{% static "/armata-v12-latin/armata-v12-latin-regular.eot?#iefix"%}') format('embedded-opentype'), /* IE6-IE8 */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.woff2"%}') format('woff2'), /* Super Modern Browsers */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.woff"%}') format('woff'), /* Modern Browsers */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.ttf"%}') format('truetype'), /* Safari, Android, iOS */
+                url('{% static "/armata-v12-latin/armata-v12-latin-regular.svg#Armata"%}') format('svg'); /* Legacy iOS */
+        }
+
+        .body {
+            background-color: #212121;
+            color: #F45D00;
+            font-family: Armata;
+        }
+
+        .top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #212121;
+            height: 10vh;
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #F45D00;
+            font-family: Armata;
+        }
+
+        .top-button {
+            margin: 0 40px;
+        }
+
+        .time {
+            position: fixed;
+            top: 10vh;
+            left: 0;
+            height: 6vh;
+            width: 100vw;
+            background-color: #f45e00a4;
+            z-index: 998;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            letter-spacing: 4px;
+            font-family: Armata;
+        }
+
+        .time-date {
+            height: fit-content;
+            margin-left: 50px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .day {
+            margin-top: 30px;
+            height: 3rem;
+            font-size: 1.7rem;
+            line-height: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+        }
+
+        #month {
+            margin-top: 0;
+        }
+
+        .date {
+            display: flex;
+            flex-direction: column;
+            font-size: 5rem;
+            line-height: 0;
+        }
+
+        .hour {
+            margin-right: 40px;
+            font-size: 5rem;
+            display: flex;
+        }
+
+        .hour img {
+            margin-right: 30px;
+        }
+
+        .blank {
+            position: fixed;
+            top: 10vh;
+            left: 0;
+            height: 6vh;
+            width: 100%;
+            background-color: #212121;
+        }
+
+        .container {
+            position: absolute;
+            top: 16vh;
+            left: 0;
+            background-color: #212121;
+            width: 100vw;
+            height: 80vh;
+            overflow-y: scroll;
+            z-index: 0;
+        }
+
+        #now {
+            position: absolute;
+            top: 100px;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .navBar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #212121;
+            height: 10vh;
+            width: 100vw;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            color: #F45D00;
+            font-family: Armata;
+        }
+
+        .goBar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #212121;
+            height: 10vh;
+            width: 100vw;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            color: #F45D00;
+            font-family: Armata;
+        }
+
+        .agoBar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #212121;
+            height: 20vh;
+            width: 100vw;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            color: #F45D00;
+            font-family: Armata;
+        }
+
+        .dist {
+            top: 1px;
+            padding: 0px;
+            color: #F45D00;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+
+
+        .nav {
+            padding: 30px;
+            color: #F45D00;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+
+        .here {
+            border-top: solid 10px #F45D00;
+        }
+
+        .block {
+            position: relative;
+            left: 40%;
+            width: 500px;
+            background-color: #F45D00;
+            border: #B54B0A solid 10px;
+            border-radius: 50px;
+            z-index: 997;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Armata;
+        }
+
+        .category {
+            width: fit-content;
+            min-width: 40%;
+            margin-top: 7%;
+            margin-bottom: 10%;
+            padding: 2% 10%;
+            background-color: #B54B0A;
+            color: #212121;
+            border-radius: 50px;
+            font-size: 2.5rem;
+            font-weight: 500;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .set {
+            width: fit-content;
+            margin-top: 2%;
+            padding: 1% 10%;
+            background-color: #B54B0A;
+            color: #212121;
+            border-radius: 50px;
+            font-size: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8rem;
+        }
+
+        .cateset {
+            width: fit-content;
+            left: 10%;
+            padding: 1% 10%;
+            background-color: #B54B0A;
+            opacity: 0.9;
+            color: #212121;
+            border-radius: 50px;
+            font-size: 2rem;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <!--top bar-->
+    <div class="top">
+        <img class="top-button" src="{% static '/img/logo.svg'%}" height="80px"/>
+        <img class="top-button" src="{% static '/img/profile-icon.svg'%}" height="80px"/>
+    </div>
+
+    <!--inside-->
+    <div class="time">
+        <div class="time-date">
+            <div class="day">
+                <p id="day"></p>
+                <p id="month"></p>
+            </div>
+            <div class="date">
+                <p id="date"></p>
+            </div>
+        </div>
+
+        <div class="hour">
+            <img src="{% static '/img/time.svg'%}" height="80px"/>
+            <div id="clock"></div>
+        </div>
+    </div>
+
+    <div class="container" style="background-color: #212121;">
+        <img src="{% static '/img/map_with_path.png'%}" width="100%"/>
+    </div>
+
+    <div class="b" style="position: absolute; bottom: 19vh; width: 100%; z-index: 2; margin-left: 0; left: 0;">
+        <img src="{% static '/img/bar.png'%}" width="100%"/>
+    </div>
+
+    <div class="cateset" style="position: absolute; left: 15vh; bottom: 20vh;  z-index: 2; margin-left: 0; left: 0; padding: 1% 5%; border-radius: 20px; font-size: 4.5rem; font-family: Armata;">
+        Category
+    </div>
+
+    <div class="agoBar">
+        <a class="dist" style="text-align: center; color: #00D1FF;">
+            2.7 mi <br>
+            <h1 style="size: 3rem;">Choice 1</h1><br>
+            <img src="{% static '/img/go_blue.png'%}" height="130px"/>
+        </a>
+        <a class="dist" style="text-align: center; color: #FF0000;">
+            2.7 mi <br>
+            <h1 style="size: 3rem;">Choice 2</h1><br>
+            <img src="{% static '/img/go_red.png'%}" height="130px"/>
+        </a>
+        <a class="dist" style="text-align: center; color: #E0F400;">
+            2.7 mi <br>
+            <h1 style="size: 3rem;">Choice 3</h1><br>
+            <img src="{% static '/img/go_yellow.png'%}" height="130px"/>
+        </a>
+    </div>
+
+    
+</body>
+<script>
+    //clock
+    var t = setInterval(function() {getTime()}, 1000);
+    //getting the date
+    getDate();
+    //getting JSON
+    var Blocks = {blocks: []};
+    fetch("{% static '/plans.json'%}").then(
+        function(u){ return u.json();}
+      ).then(
+        function(data){
+          createBlockJSON(data);
+        }
+      )
+    
+    //number of blocks
+    var numBlock = 0;
+    var currentId = 0;
+
+    function createBlockJSON(json) {
+        if (localStorage.getItem("plans") != null) {
+            json = JSON.parse(localStorage.getItem("plans"));
+        }
+        console.log(json);
+        for (i=0; i < json.blocks.length; i++) {
+            if (json.blocks[i] != null) {
+                let timeline = document.getElementById('timeline-img');
+                let height = timeline.offsetHeight / 24;
+                let y = json.blocks[i].time.hour * height + json.blocks[i].time.minute * height/60 + json.blocks[i].time.second * height/3600 - 100;
+                let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
+                $("#timeline").append(
+                    "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ json.blocks[i].cat +" </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
+                );
+
+                let block = {id: currentId,
+                            cat: json.blocks[i].cat,
+                            time: {
+                                 hour: json.blocks[i].time.hour,
+                                 minute: json.blocks[i].time.minute,
+                                 second: json.blocks[i].time.second
+                             }
+                            };
+                Blocks.blocks.push(block);
+                currentId += 1;
+                numBlock += 1;
+            }
+        }
+
+        if (JSON.parse(localStorage.getItem("explore")) != null) {
+            let timeline = document.getElementById('timeline-img');
+            let explore = JSON.parse(localStorage.getItem("explore"));
+            let height = timeline.offsetHeight / 24;
+            let y = explore.time.hour * height + explore.time.minute * height/60 + explore.time.second * height/3600 - 100;
+            let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
+            $("#timeline").append(
+                "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> "+ explore.cat +" </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>"
+            );
+
+            let block = {id: currentId,
+                        cat: explore.cat,
+                        time: {
+                             hour: explore.time.hour,
+                             minute: explore.time.minute,
+                             second: explore.time.second
+                         }
+                        };
+            Blocks.blocks.push(block);
+            currentId += 1;
+            numBlock += 1;
+            localStorage.setItem("explore", null);
+        }
+
+        console.log(Blocks)
+        saveData();
+    }
+
+    function createBlock() {
+        if (numBlock >= 10) {
+            return
+        }
+        let timeline = document.getElementById('timeline-img');
+        let y = mousePosY();
+        let height = timeline.offsetHeight / 24;
+        let bottom = timeline.offsetHeight - y + (numBlock*(height + 15)) + 60;
+        $("#timeline").append(
+            "<div class='block' id='block" + currentId + "' style='top: " + -bottom + "px; height: " + height + "px'> <div class='category' id='cat"+ currentId +"'> Category </div> <div class='set'>Set</div> <div class='set' onclick=randomize('block" + currentId + "','cat" + currentId + "')>Randomize</div> <div class='set' onclick=deleteBlock('block" + currentId + "')> Remove</div> </div>");
+
+        let block = {id: currentId,
+                     cat: "Category",
+                     time: {
+                        hour: Math.floor((y+100)/height),
+                        minute: Math.floor(((y+100)/height - Math.floor((y+100)/height)) * 60),
+                        second: 0
+                     }
+                    };
+        Blocks.blocks.push(block);
+        currentId += 1;
+        numBlock += 1;
+        console.log(Blocks);
+        saveData();
+    }
+
+    function randomize(id, cat) {
+        console.log("random")
+        let category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
+        let block = document.getElementById(id);
+        let blockCat = document.getElementById(cat);
+        let newCat = category[Math.floor(Math.random() * (category.length))]
+        blockCat.innerHTML = newCat;
+        console.log("remove: " + blockCat);
+        Blocks.blocks[block.id[5]].cat = newCat;
+        console.log(Blocks);
+        saveData();
+    }
+
+    function deleteBlock(id) {
+        let block = document.getElementById(id);
+        console.log(Blocks.blocks[parseInt(block.id[5])]);
+        Blocks.blocks[parseInt(block.id[5])] = null;
+        delete Blocks.blocks[parseInt(block.id[5])];
+        block.remove();
+        numBlock -= 1;
+        saveData();
+        location.reload();
+    }
+
+    function saveData() {
+        console.log("saving");
+        localStorage.setItem("plans", JSON.stringify(Blocks));
+        console.log("saving complete");
+    }
+
+    function mousePosY() {
+        return window.event.clientY + document.getElementById('timeline').scrollTop - window.innerHeight * 15 / 100;
+    }
+
+    function getDate() {
+        let date = new Date();
+        document.getElementById('date').innerHTML = checkTime(date.getDate());
+        document.getElementById('month').innerHTML = translateMonth(date.getMonth());
+        document.getElementById('day').innerHTML = translateDate(date.getDay());
+    }
+
+    function translateDate(date) {
+        if (date == 0) {
+            return 'Sun';
+        } else if (date == 1) {
+            return 'Mon';
+        } else if (date == 2) {
+            return 'Tue';
+        } else if (date == 3) {
+            return 'Wed';
+        } else if (date == 4) {
+            return 'Thu';
+        } else if (date == 5) {
+            return 'Fri';
+        } else if (date == 6) {
+            return 'Sat';
+        }
+    }
+
+    function translateMonth(month) {
+        if (month == 0) {
+            return 'Jan';
+        } else if (month == 1) {
+            return 'Feb';
+        } else if (month == 2) {
+            return 'Mar';
+        } else if (month == 3) {
+            return 'Apr';
+        } else if (month == 4) {
+            return 'May';
+        } else if (month == 5) {
+            return 'Jun';
+        } else if (month == 6) {
+            return 'Jul';
+        } else if (month == 7) {
+            return 'Aug';
+        } else if (month == 8) {
+            return 'Sep';
+        } else if (month == 9) {
+            return 'Oct';
+        } else if (month == 10) {
+            return 'Nov';
+        } else if (month == 11) {
+            return 'Dec';
+        }
+    }
+
+    function getTime() {
+        let time = new Date();
+        document.getElementById('clock').innerHTML = checkTime(time.getHours(), true) + ":"
+                                                   + checkTime(time.getMinutes(), false) + ":"
+                                                   + checkTime(time.getSeconds(), false) + " "
+                                                   + ampm(time.getHours());
+        let timeline = document.getElementById('timeline-img');
+        let height = timeline.offsetHeight/24;
+        document.getElementById('now').style.top = (time.getHours() + time.getMinutes()/60 + time.getSeconds()/3600) * height - 25 + "px";
+    }
+
+    function checkTime(i, isHour) {
+        if (isHour) {
+            if (i > 12) {
+                i -= 12;
+            }
+        }
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+    function ampm(i) {
+        if (i >= 12) {
+            return 'PM';
+        } else {
+            return 'AM';
+        }
+    }
+
+</script>
+</html>
