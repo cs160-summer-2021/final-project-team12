@@ -447,6 +447,10 @@
         let timeline = document.getElementById('timeline-img');
         let height = timeline.offsetHeight/24;
         document.getElementById('now').style.top = (time.getHours() + time.getMinutes()/60 + time.getSeconds()/3600) * height - 25 + "px";
+        console.log(timeline.scrollTop);
+        if (timeline.scrollTop < (time.getHours() + time.getMinutes()/60 + time.getSeconds()/3600) * height - 25) {
+            timeline.scrollTo(0, (time.getHours() + time.getMinutes()/60 + time.getSeconds()/3600) * height - 25 )
+        }
     }
 
     function checkTime(i, isHour) {

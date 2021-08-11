@@ -274,9 +274,10 @@
         $(".container").append(
             "<div class='block' id='block"+ id +"'> <div class='length'> 1 Hour </div> <div class='row' id='row"+ id +"'> </div> </div>"
         )
-
-        numPosibility = Math.floor(Math.random() * 2) + 2;
-        catPos = Math.floor(Math.random() * numPosibility);
+        
+        let numPosibility = Math.floor(Math.random() * 2) + 2;
+        let catPos = Math.floor(Math.random() * numPosibility);
+        
         for (let i=0; i < numPosibility; i++) {
             let category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
             if (i == catPos) {
