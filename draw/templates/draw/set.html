@@ -32,7 +32,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #212121;
+            background-color: #F6F6F6;
             height: 10vh;
             width: 100vw;
             display: flex;
@@ -53,6 +53,7 @@
             height: 6vh;
             width: 100vw;
             background-color: #f45e00a4;
+            color: #F6F6F6;
             z-index: 998;
             display: flex;
             flex-direction: row;
@@ -148,7 +149,7 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            background-color: #212121;
+            background-color: #F6F6F6;
             height: 20vh;
             width: 100vw;
             display: flex;
@@ -183,7 +184,7 @@
             padding: 1% 5%;
             background-color: #B54B0A;
             opacity: 0.9;
-            color: #212121;
+            color: #F6F6F6;
             border-radius: 40px;
             font-size: 4.5rem;
             z-index: 99;
@@ -196,7 +197,7 @@
 <body>
     <!--top bar-->
     <div class="top" >
-        <img class="top-button" src="{% static '/img/logo.svg'%}" height="80px"/>
+        <img class="top-button" src="{% static '/img/logo.png'%}" height="80px"/>
         <img class="top-button" src="{% static '/img/profile-icon.svg'%}" height="80px"/>
     </div>
 
@@ -215,39 +216,39 @@
         </div>
 
         <div class="hour">
-            <img src="{% static '/img/time.svg'%}" height="80px"/>
+            <img src="{% static '/img/time_add.svg'%}" height="80px"/>
             <div id="clock">11:15 - 12:15 PM</div>
         </div>
     </div>
 
     <div class="container" style="background-color: #212121;">
-        <img src="{% static '/img/map_with_path.png'%}" width="100%"/>
+        <img src="{% static '/img/map_wp.png'%}" width="100%"/>
         <div class="cateset">
             Category
         </div>
     </div>
 
-    <div class="b" style="position: absolute; bottom: 19vh; width: 100%; z-index: 2; margin-left: 0; left: 0;">
+    <div class="b" style="position: absolute; bottom: 19.2vh; width: 100%; z-index: 2; margin-left: 0; left: 0;">
         <img src="{% static '/img/bar.png'%}" width="100%"/>
     </div>
 
     
 
     <div class="agoBar">
-        <a class="dist" href="/draw/plan" style="text-align: center; color: #00D1FF;">
+        <a class="dist" href="/draw/plan" style="text-align: center; color: #00A2C6;">
             2.7 mi <br>
             <h1 style="size: 3rem;">Choice 1</h1><br>
-            <img src="{% static '/img/go_blue.png'%}" height="130px"/>
+            <img src="{% static '/img/go_blue.svg'%}" height="130px"/>
         </a>
         <a class="dist" href="/draw/plan" style="text-align: center; color: #FF0000;">
             1.1 mi <br>
             <h1 style="size: 3rem;">Choice 2</h1><br>
-            <img src="{% static '/img/go_red.png'%}" height="130px"/>
+            <img src="{% static '/img/go_red.svg'%}" height="130px"/>
         </a>
-        <a class="dist" href="/draw/plan" style="text-align: center; color: #E0F400;">
+        <a class="dist" href="/draw/plan" style="text-align: center; color: #008325;">
             1.7 mi <br>
             <h1 style="size: 3rem;">Choice 3</h1><br>
-            <img src="{% static '/img/go_yellow.png'%}" height="130px"/>
+            <img src="{% static '/img/go_yellow.svg'%}" height="130px"/>
         </a>
     </div>
 
