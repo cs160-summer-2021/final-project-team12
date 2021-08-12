@@ -145,7 +145,7 @@
             display: flex;
             flex-direction: column-reverse;
             justify-content: end;
-            
+
         }
 
         .row {
@@ -185,7 +185,7 @@
 <body>
     <!--top bar-->
     <div class="top">
-        <img class="top-button" src="{% static '/img/logo.svg'%}" height="80px"/>
+        <img class="top-button" src="{% static '/img/logo.png'%}" height="80px"/>
         <img class="top-button" src="{% static '/img/profile-icon.svg'%}" height="80px"/>
     </div>
 
@@ -252,13 +252,13 @@
                 createTime(json.blocks[i].id, json.blocks[i].cat, json.blocks[i].time);
             }
         }
-        
+
         console.log(Blocks)
     }
 
     function reorder(json) {
         let newjson = json.blocks;
-        
+
         newjson = newjson.sort(function(a, b) {
             return a.time.hour - b.time.hour;
         });
@@ -272,10 +272,10 @@
         $(".container").append(
             "<div class='block' id='block"+ id +"'> <div class='length'> 1 Hour </div> <div class='row' id='row"+ id +"'> </div> </div>"
         )
-        
+
         let numPosibility = Math.floor(Math.random() * 2) + 2;
         let catPos = Math.floor(Math.random() * numPosibility);
-        
+
         for (let i=0; i < numPosibility; i++) {
             var category = ['Museum', 'Hiking', 'Mall', 'Arcade', 'Street Food', 'Park'];
             var noCat = [cat];

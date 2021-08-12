@@ -132,7 +132,7 @@
             position: fixed;
             bottom: 0;
             left: 0;
-            background-color: #212121;
+            background-color: #F38948;
             height: 10vh;
             width: 100vw;
             display: flex;
@@ -144,7 +144,7 @@
 
         .nav {
             padding: 30px;
-            color: #F45D00;
+            color: #F6F6F6;
             text-decoration: none;
             display: flex;
             flex-direction: column;
@@ -154,7 +154,7 @@
         }
 
         .here {
-            border-top: solid 10px #F45D00;
+            border-top: solid 10px #F6F6F6;
         }
 
         .block {
@@ -205,7 +205,7 @@
 <body>
     <!--top bar-->
     <div class="top">
-        <img class="top-button" src="{% static '/img/logo.svg'%}" height="80px"/>
+        <img class="top-button" src="{% static '/img/logo.png'%}" height="80px"/>
         <img class="top-button" src="{% static '/img/profile-icon.svg'%}" height="80px"/>
     </div>
 
@@ -230,7 +230,7 @@
     <div class="container" id = "timeline">
         <img id="now" src="{% static '/img/current-time.svg'%}" width="97%">
         <img id="timeline-img" onclick=createBlock() src="{% static '/img/time-plan.svg'%}" width="100%">
-        
+
         </img>
     </div>
 
@@ -264,7 +264,7 @@
           createBlockJSON(data);
         }
       )
-    
+
     //number of blocks
     var numBlock = 0;
     var currentId = 0;
